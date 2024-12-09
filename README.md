@@ -39,14 +39,15 @@ npm install @whizzes/svelte-notifications
   };
 </script>
 
-<button on:click="{success}">Append Success</button>
+<button onclick={success}> Append Success </button>
 
-<!-- Notifications provider -->
-<NotificationList position="{Position.BottomRight}" let:notification>
-  <li>
-    <strong>{notification.title}</strong>
-    <p>{notification.message}</p>
-  </li>
+<NotificationList>
+  {#snippet children({ notification })}
+    <li>
+      <strong>{notification.title}</strong>
+      <p>{notification.message}</p>
+    </li>
+  {/snippet}
 </NotificationList>
 ```
 
