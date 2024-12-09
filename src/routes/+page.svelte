@@ -6,11 +6,13 @@
   };
 </script>
 
-<button on:click={success}> Append Success </button>
+<button onclick={success}> Append Success </button>
 
-<NotificationList let:notification>
-  <li>
-    <strong>{notification.title}</strong>
-    <p>{notification.message}</p>
-  </li>
+<NotificationList >
+  {#snippet children({ notification })}
+    <li>
+      <strong>{notification.title}</strong>
+      <p>{notification.message}</p>
+    </li>
+  {/snippet}
 </NotificationList>

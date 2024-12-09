@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
   export enum Position {
     TopRight = 'top_right',
     TopLeft = 'top_left',
@@ -29,14 +29,24 @@
 
   import type { Notification as INotification } from '$lib/stores/notifications';
 
-  let notificationsList: INotification[] = [];
+  let notificationsList: INotification[] = $state([]);
 
-  let className = '';
-  export { className as class };
+  
 
-  export let style: string = '';
 
-  export let position: Position = Position.TopRight;
+  interface Props {
+    class?: string;
+    style?: string;
+    position?: Position;
+    children?: import('svelte').Snippet<[any]>;
+  }
+
+  let {
+    class: className = '',
+    style = '',
+    position = Position.TopRight,
+    children
+  }: Props = $props();
 
   // Use auto-subscriptions to avoid leaking memory on re-renders
   // Refer: https://svelte.dev/tutorial/auto-subscriptions
@@ -57,7 +67,7 @@
   {style}
 >
   {#each notificationsList as notification}
-    <slot {notification} />
+    {@render children?.({ notification, })}
   {/each}
 </ul>
 
