@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { NotificationList, notifications } from '$lib';
+  import { NotificationList, notifications } from '$lib/index.js';
 
   const success = () => {
     notifications.notifySuccess(`Hello World!${new Date()}`);
