@@ -14,11 +14,14 @@ export type NotificationStore = {
   notifications: Record<string, Notification>;
 };
 
-export enum NotificationKind {
-  Failure = 'Failure',
-  Success = 'Success',
-  Warning = 'Warning',
-}
+export const NotificationKind = {
+  Failure: 'Failure',
+  Success: 'Success',
+  Warning: 'Warning',
+};
+
+export type NotificationKind =
+  (typeof NotificationKind)[keyof typeof NotificationKind];
 
 export type Notification = {
   id: string;
@@ -31,7 +34,7 @@ export type Notification = {
 const DEFAULT_TIMEOUT_SECONDS = 5;
 
 export function createNotificationStore() {
-  const timeouts: Record<string, NodeJS.Timeout> = {};
+  const timeouts: Record<string, ReturnType<typeof setTimeout>> = {};
   const notificationStore = writable<NotificationStore>({
     notifications: {},
   });

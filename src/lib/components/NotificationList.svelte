@@ -1,12 +1,14 @@
 <script lang="ts" module>
-  export enum Position {
-    TopRight = 'top_right',
-    TopLeft = 'top_left',
-    BottomRight = 'bottom_right',
-    BottomLeft = 'bottom_left',
-  }
+  export const Position = {
+    TopRight: 'top_right',
+    TopLeft: 'top_left',
+    BottomRight: 'bottom_right',
+    BottomLeft: 'bottom_left',
+  } as const;
 
-  export function getPositionClasses(position: Position = Position.TopRight) {
+  export type TPosition = (typeof Position)[keyof typeof Position];
+
+  export function getPositionClasses(position: TPosition = Position.TopRight) {
     switch (position) {
       case Position.TopRight:
         return 'position-top-right';
@@ -25,19 +27,16 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
 
-  import notification from '$lib/stores/notifications';
+  import notification from '$lib/stores/notifications.js';
 
-  import type { Notification as INotification } from '$lib/stores/notifications';
+  import type { Notification as INotification } from '$lib/stores/notifications.js';
 
   let notificationsList: INotification[] = $state([]);
-
-  
-
 
   interface Props {
     class?: string;
     style?: string;
-    position?: Position;
+    position?: TPosition;
     children?: import('svelte').Snippet<[any]>;
   }
 
@@ -45,7 +44,7 @@
     class: className = '',
     style = '',
     position = Position.TopRight,
-    children
+    children,
   }: Props = $props();
 
   // Use auto-subscriptions to avoid leaking memory on re-renders
@@ -67,7 +66,7 @@
   {style}
 >
   {#each notificationsList as notification}
-    {@render children?.({ notification, })}
+    {@render children?.({ notification })}
   {/each}
 </ul>
 
