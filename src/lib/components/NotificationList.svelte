@@ -31,13 +31,15 @@
 
   import type { Notification as INotification } from '$lib/stores/notifications.js';
 
+  import type { Snippet } from 'svelte';
+
   let notificationsList: INotification[] = $state([]);
 
   interface Props {
     class?: string;
     style?: string;
     position?: TPosition;
-    children?: import('svelte').Snippet<[any]>;
+    children?: Snippet<[any]>;
   }
 
   let {

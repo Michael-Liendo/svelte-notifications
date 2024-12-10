@@ -9,30 +9,29 @@ import NotificationList, {
 describe('NotificationList', () => {
   it('renders correctly with TopRight position', () => {
     const { container } = render(NotificationList, {
-      position: Position.TopRight,
+      props: { position: Position.TopRight },
     });
     expect(container.querySelector('.position-top-right')).not.toBeNull();
   });
 
   it('renders correctly with TopLeft position', () => {
     const { container } = render(NotificationList, {
-      position: Position.TopLeft,
+      props: { position: Position.TopLeft },
     });
     expect(container.querySelector('.position-top-left')).not.toBeNull();
   });
 
   it('renders correctly with BottomRight position', () => {
     const { container } = render(NotificationList, {
-      position: Position.BottomRight,
+      props: { position: Position.BottomRight },
     });
     expect(container.querySelector('.position-bottom-right')).not.toBeNull();
   });
 
   it('renders correctly with BottomLeft position', () => {
     const { container } = render(NotificationList, {
-      position: Position.BottomLeft,
+      props: { position: Position.BottomLeft },
     });
-
     expect(container.querySelector('.position-bottom-left')).not.toBeNull();
   });
 });
@@ -59,7 +58,10 @@ describe('getPositionClasses', () => {
 describe('Custom Classes', () => {
   it('renders correctly with custom class', () => {
     const { container } = render(NotificationList, {
-      class: 'custom-class',
+      props: {
+        class: 'custom-class',
+        position: Position.TopRight,
+      },
     });
     expect(container.querySelector('.custom-class')).not.toBeNull();
   });
