@@ -5,11 +5,12 @@ export default defineConfig({
   plugins: [svelte()],
   test: {
     globals: true,
-    environment: 'jsdom'
+    environment: 'jsdom',
   },
   resolve: {
     alias: {
-      $lib: '/src/lib/'
-    }
-  }
+      $lib: '/src/lib/',
+    },
+    conditions: process.env.VITEST ? ['browser'] : undefined,
+  },
 });
